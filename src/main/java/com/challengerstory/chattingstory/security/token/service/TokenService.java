@@ -15,12 +15,10 @@ import org.springframework.stereotype.Service;
 public class TokenService {
     private final TokenStore tokenStore;
     private final JwtUtil jwtUtil;
-    private final TokenProvider tokenProvider;
 
-    public TokenService(TokenStore tokenStore, JwtUtil jwtUtil, TokenProvider tokenProvider) {
+    public TokenService(TokenStore tokenStore, JwtUtil jwtUtil) {
         this.tokenStore = tokenStore;
         this.jwtUtil = jwtUtil;
-        this.tokenProvider = tokenProvider;
     }
 
     public void addToBlacklist(String accessToken) {
