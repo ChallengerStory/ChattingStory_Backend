@@ -40,11 +40,11 @@ public class RedisTokenStore implements TokenStore{
     }
 
     @Override
-    public void addToBlacklist(String token, String userIdentifier, long remainingTime) {
+    public void addToBlacklist(String token, String email, long remainingTime) {
         String key = BLACKLIST_PREFIX + token;
         redisTemplate.opsForValue().set(
                 key,
-                userIdentifier,
+                email,
                 remainingTime,
                 TimeUnit.MILLISECONDS
         );
