@@ -19,7 +19,8 @@ public class UserEntity {
     @Column(name = "user_login", nullable = false)
     private String userLogin;
 
-    @Column(name = "email", nullable = false)
+    /* 설명. OAuth까지 고려하여 email을 nullable하게 설정함 */
+    @Column(name = "email")
     private String email;
 
     @Column(name = "password", nullable = false)
@@ -31,4 +32,5 @@ public class UserEntity {
 
     @Column(name = "last_activated_at")
     private LocalDateTime lastActivatedAt;
+
 }

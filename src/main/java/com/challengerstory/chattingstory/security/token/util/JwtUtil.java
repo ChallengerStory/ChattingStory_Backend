@@ -1,5 +1,6 @@
 package com.challengerstory.chattingstory.security.token.util;
 
+import com.challengerstory.chattingstory.security.aggregate.CustomUser;
 import com.challengerstory.chattingstory.user.command.application.service.AppUserService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -67,5 +68,33 @@ public class JwtUtil {
         return claims.getExpiration().getTime() - new Date().getTime();
     }
 
+    /* 설명. accessToken을 통한 인증 객체 추출 */
+    public Authentication getAuthentication(String accessToken) {
+        CustomUser userDetails = (CustomUser) appUserService.loadUserByUserIdentifier(getSubject(accessToken));
+        Claims claims = parseClaims(accessToken);
+        Collection<? extends GrantedAuthority> authorities;
+        if (claims.get("auth") == null) {
+            throw new RuntimeException("권한 정보가 없는 토큰입니다.");
+        } else {
+            /* 설명. Claim에서 권한 정보 가져오기
+                인증되면 뒤 필터 동작 x
+                인증 안되면 다음 필터 실행
+                */
+            authorities =
+                    Arrays.stream(claims.get("auth").toString()
+                                    .replace("[", "")
+                                    .replace("]", "")
+                                    .split(", "))
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toList());
+        }
+        log.debug("authorities: {}", authorities);
+        // principal: 관리될 객체를 적어야됨
+
+        return new UsernamePasswordAuthenticationToken(userDetails, "", authorities);
+
+
+
+    }
 
 }
