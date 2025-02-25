@@ -46,11 +46,7 @@ public class JwtUtil {
                 .getBody();
     }
 
-    /*
-     *  설명.
-     *   access token : userType + userLogin
-     *   refresh token: email
-     * */
+    /* subject: email */
     public String getSubject(String token) {
         return parseClaims(token).getSubject();
     }
@@ -77,10 +73,6 @@ public class JwtUtil {
         if (claims.get("auth") == null) {
             throw new RuntimeException("권한 정보가 없는 토큰입니다.");
         } else {
-            /* 설명. Claim에서 권한 정보 가져오기
-                인증되면 뒤 필터 동작 x
-                인증 안되면 다음 필터 실행
-                */
             authorities =
                     Arrays.stream(claims.get("auth").toString()
                                     .replace("[", "")
