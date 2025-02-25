@@ -14,7 +14,7 @@ CREATE TABLE
     TBL_USER (
         user_id BIGINT NOT NULL AUTO_INCREMENT,
         user_login VARCHAR(255) NOT NULL,
-        email VARCHAR(255),
+        email VARCHAR(255) NOT NULL,
         password VARCHAR(1023) NOT NULL,
         user_type VARCHAR(255) NOT NULL,
         last_activated_at TIMESTAMP NOT NULL,
