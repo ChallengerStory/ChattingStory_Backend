@@ -1,6 +1,7 @@
 package com.challengerstory.chattingstory.security.token.util;
 
 import com.challengerstory.chattingstory.security.aggregate.CustomUser;
+import com.challengerstory.chattingstory.security.application.service.AuthUserService;
 import com.challengerstory.chattingstory.user.command.application.service.AppUserService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -25,12 +26,12 @@ import java.util.stream.Collectors;
 @Component
 public class JwtUtil {
     private final Key secretKey;
-    private final AppUserService appUserService;
+    private final AuthUserService authUserService;
 
-    public JwtUtil(@Value("${security.secret}") String secret, AppUserService appUserService) {
+    public JwtUtil(@Value("${security.secret}") String secret, AuthUserService authUserService) {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         this.secretKey = Keys.hmacShaKeyFor(keyBytes);
-        this.appUserService = appUserService;
+        this.authUserService = authUserService;
     }
 
     public String signToken(JwtBuilder builder) {
@@ -70,7 +71,7 @@ public class JwtUtil {
 
     /* 설명. accessToken을 통한 인증 객체 추출 */
     public Authentication getAuthentication(String accessToken) {
-        CustomUser userDetails = (CustomUser) appUserService.loadUserByUserIdentifier(getSubject(accessToken));
+        CustomUser userDetails = authUserService.loadUserByUsername(getSubject(accessToken));
         Claims claims = parseClaims(accessToken);
         Collection<? extends GrantedAuthority> authorities;
         if (claims.get("auth") == null) {

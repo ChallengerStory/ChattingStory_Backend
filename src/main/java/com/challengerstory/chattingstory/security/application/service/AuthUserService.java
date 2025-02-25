@@ -11,5 +11,5 @@ import org.springframework.stereotype.Service;
 
 public interface AuthUserService extends UserDetailsService {
     @Override
-    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+    CustomUser loadUserByUsername(String username) throws UsernameNotFoundException;
 }

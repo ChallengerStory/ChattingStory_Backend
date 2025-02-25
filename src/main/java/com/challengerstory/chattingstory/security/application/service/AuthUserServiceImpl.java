@@ -19,7 +19,7 @@ public class AuthUserServiceImpl implements AuthUserService{
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public CustomUser loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByEmail(email);
         if(user == null){
             throw new UsernameNotFoundException(email+"not found");
