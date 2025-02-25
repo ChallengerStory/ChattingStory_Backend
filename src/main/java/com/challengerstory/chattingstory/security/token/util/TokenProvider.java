@@ -2,7 +2,7 @@ package com.challengerstory.chattingstory.security.token.util;
 
 import com.challengerstory.chattingstory.security.aggregate.CustomUser;
 import com.challengerstory.chattingstory.security.application.service.AuthUserService;
-import com.challengerstory.chattingstory.security.config.SecurityProperties;
+import com.challengerstory.chattingstory.security.config.CustomSecurityProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
@@ -20,14 +20,14 @@ public class TokenProvider {
 
     private final AuthUserService authUserService;
     private final JwtUtil jwtUtil;
-    private final SecurityProperties securityProperties;
+    private final CustomSecurityProperties customSecurityProperties;
 
     public String generateAccessToken(CustomUser user){
-        return buildToken(user, securityProperties.getAccessExpirationTime());
+        return buildToken(user, customSecurityProperties.getAccessExpirationTime());
     }
 
     public String generateRefreshToken(CustomUser user){
-        return buildToken(user, securityProperties.getRefreshExpirationTime());
+        return buildToken(user, customSecurityProperties.getRefreshExpirationTime());
     }
 
     /* subject: email(OAuth 유저의 경우 userLogin@UserType.com 형식으로 저장) */
