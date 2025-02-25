@@ -17,6 +17,7 @@ CREATE TABLE
         email VARCHAR(255) NOT NULL,
         password VARCHAR(1023) NOT NULL,
         user_type VARCHAR(255) NOT NULL,
+        last_activated_at TIMESTAMP NOT NULL,
         PRIMARY KEY (user_id),
         UNIQUE KEY UK_USER_EMAIL (email),
         UNIQUE INDEX UK_USER_TYPE_USER_NAME (user_type, user_login)
