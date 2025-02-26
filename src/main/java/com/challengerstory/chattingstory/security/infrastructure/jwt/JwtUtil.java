@@ -1,5 +1,7 @@
 package com.challengerstory.chattingstory.security.infrastructure.jwt;
 
+import com.challengerstory.chattingstory.common.exception.CommonException;
+import com.challengerstory.chattingstory.common.exception.ErrorCode;
 import com.challengerstory.chattingstory.security.domain.aggregate.CustomUser;
 import com.challengerstory.chattingstory.security.application.service.AuthUserService;
 import io.jsonwebtoken.*;
@@ -37,7 +39,7 @@ public class JwtUtil {
         return builder.signWith(secretKey, SignatureAlgorithm.HS512).compact();
     }
 
-    private Claims parseClaims(String token) {
+    public Claims parseClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()
@@ -50,13 +52,8 @@ public class JwtUtil {
         return parseClaims(token).getSubject();
     }
 
-    public Boolean isTokenExpired(String token) {
-        try {
-            Claims claims = parseClaims(token);
-            return claims.getExpiration().before(new Date());
-        } catch(ExpiredJwtException e){
-            return true;
-        }
+    public void isTokenValid(String token){
+        parseClaims(token);
     }
 
     public Long getRemainingTime(@NotNull String token) {

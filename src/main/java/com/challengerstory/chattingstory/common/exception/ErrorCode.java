@@ -22,6 +22,7 @@ public enum ErrorCode {
     BAD_CREDENTIALS(4010004, HttpStatus.UNAUTHORIZED, "아이디와 비밀번호가 일치하지 않습니다."),
     TOKEN_NOT_FOUND(4010005, HttpStatus.UNAUTHORIZED, "토큰이 존재하지 않습니다"),
     ACCESS_TOKEN_BLACKLISTED(4010006, HttpStatus.FORBIDDEN, "블랙리스트된 토큰입니다"),
+    ACCESS_TOKEN_EXPIRED(4010006, HttpStatus.BAD_REQUEST, "만료된 Access 토큰입니다"),
     // 권한 부족 (403)
     ACCESS_DENIED(4030001, HttpStatus.FORBIDDEN, "접근 권한이 없습니다"),
     INSUFFICIENT_PERMISSIONS(4030002, HttpStatus.FORBIDDEN, "필요한 권한이 부족합니다"),
@@ -36,6 +37,7 @@ public enum ErrorCode {
     INVALID_REFRESH_TOKEN(4000005, HttpStatus.BAD_REQUEST, "유효하지 않은 리프래시 토큰입니다"),
     ACCESS_TOKEN_NOT_FOUND(4000006, HttpStatus.BAD_REQUEST, "Access Token을 찾을 수 없습니다"),
     REFRESH_TOKEN_NOT_FOUND(4000007, HttpStatus.BAD_REQUEST, "Refresh Token을 찾을 수 없습니다"),
+    REFRESH_TOKEN_EXPIRED(4000007, HttpStatus.BAD_REQUEST, "Refresh Token이 만료되었습니다"),
     COOKIE_NOT_FOUND(4000008, HttpStatus.BAD_REQUEST, "Cookie를 찾을 수 없습니다"),
     // 보안 위반 (400)
     MULTIPLE_LOGIN_DETECTED(4000006, HttpStatus.BAD_REQUEST, "다중 로그인이 감지되었습니다"),

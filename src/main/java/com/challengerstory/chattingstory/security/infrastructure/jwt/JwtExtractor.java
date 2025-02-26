@@ -15,8 +15,10 @@ public class JwtExtractor {
     public String extractAccessToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         log.debug("extract access Token: {}", bearerToken);
-
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+        if(bearerToken == null || bearerToken.isEmpty()){
+            throw new CommonException(ErrorCode.ACCESS_TOKEN_NOT_FOUND);
+        }
+        if (bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7).trim();
         }
         return null;

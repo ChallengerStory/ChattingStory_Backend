@@ -29,12 +29,21 @@ public class JwtProvider {
     public String generateRefreshToken(CustomUser user){
         return buildToken(user, customSecurityProperties.getRefreshExpirationTime());
     }
+    public String refreshAccessToken(Claims claims){
+        return buildToken(claims, customSecurityProperties.getAccessExpirationTime());
+    }
 
     /* subject: email(OAuth 유저의 경우 userLogin@UserType.com 형식으로 저장) */
     public String buildToken(CustomUser user, Long expiration){
         Claims claims = Jwts.claims().setSubject(user.getUsername());
         claims.put("auth", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
         
+        return jwtUtil.signToken(Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expiration)));
+    }
+    public String buildToken(Claims claims, Long expiration){
         return jwtUtil.signToken(Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date())
