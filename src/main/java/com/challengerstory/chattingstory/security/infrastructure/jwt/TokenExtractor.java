@@ -1,7 +1,7 @@
 package com.challengerstory.chattingstory.security.infrastructure.jwt;
 
-import com.challengerstory.chattingstory.security.response.exception.AuthErrorCode;
-import com.challengerstory.chattingstory.security.response.exception.CustomAuthException;
+import com.challengerstory.chattingstory.common.exception.CommonException;
+import com.challengerstory.chattingstory.common.exception.ErrorCode;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class TokenExtractor {
     public String extractRefreshToken(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies == null) {
-            throw new CustomAuthException(AuthErrorCode.COOKIE_NOT_FOUND);
+            throw new CommonException(ErrorCode.COOKIE_NOT_FOUND);
         }
 
         String refreshToken = Arrays.stream(cookies)
@@ -36,7 +36,7 @@ public class TokenExtractor {
 
         if (refreshToken == null) {
             log.debug("refreshToken not found");
-            throw new CustomAuthException(AuthErrorCode.REFRESH_TOKEN_NOT_FOUND);
+            throw new CommonException(ErrorCode.REFRESH_TOKEN_NOT_FOUND);
         }
 
         return refreshToken;
