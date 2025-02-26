@@ -1,8 +1,6 @@
 package com.challengerstory.chattingstory.user.command.application.controller;
 
 import com.challengerstory.chattingstory.common.ResponseDTO;
-import com.challengerstory.chattingstory.user.command.aggregate.vo.NewUserRequest;
-import com.challengerstory.chattingstory.user.command.application.service.AppUserService;
 import com.challengerstory.chattingstory.user.command.application.service.AuthUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
