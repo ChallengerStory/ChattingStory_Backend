@@ -24,6 +24,9 @@ public class NormalLoginResponseDTO {
     @JsonProperty("user_type")
     private String userType;
 
+    @JsonProperty("user_login")
+    private String userLogin;
+
 
 
 }
