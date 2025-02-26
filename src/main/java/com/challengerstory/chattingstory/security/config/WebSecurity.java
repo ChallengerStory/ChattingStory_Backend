@@ -13,6 +13,7 @@ import com.challengerstory.chattingstory.security.response.CustomSecurityExcepti
 import com.challengerstory.chattingstory.security.response.SecurityResponseHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
+@EnableConfigurationProperties(CustomSecurityProperties.class)
 public class WebSecurity {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
