@@ -1,6 +1,7 @@
 package com.challengerstory.chattingstory.user.command.application.controller;
 
 import com.challengerstory.chattingstory.common.ResponseDTO;
+import com.challengerstory.chattingstory.user.command.aggregate.vo.NewUserRequest;
 import com.challengerstory.chattingstory.user.command.application.service.AuthUserService;
 import com.challengerstory.chattingstory.user.command.application.service.EmailVerificationService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,19 @@ public class AuthController {
         log.debug("email: {}", email);
         emailVerificationService.sendVerificationCode(email);
         return ResponseDTO.ok(email+"이메일 전송 완료");
+    }
+
+    @PostMapping("/verify-code")
+    public ResponseDTO<?> verifyCode(@RequestParam String email, @RequestParam String code){
+        log.debug("email: {}", email);
+        log.debug("code: {}", code);
+
+        return ResponseDTO.ok(emailVerificationService.verifyCode(email, code));
+    }
+
+    @PostMapping("/register")
+    public ResponseDTO<?> registNewUser(@RequestBody NewUserRequest newUser){
+        return ResponseDTO.ok(authUserService.registNewUser(newUser));
     }
 
 
