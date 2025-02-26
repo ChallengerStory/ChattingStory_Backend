@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -24,13 +23,13 @@ public class SecurityResponseHandler {
         NormalLoginResponseDTO loginResponse = new NormalLoginResponseDTO(LocalDateTime.now(), userDetails.getUserId(), userDetails.getUsername(), userDetails.getUserType(), userDetails.getUserLogin());
 
         ResponseDTO<?> successResponse = ResponseDTO.ok(loginResponse);
-        sendJsonResponse(response, HttpStatus.OK, successResponse);
+        sendJsonResponse(response, successResponse);
     }
 
 
 
-    private void sendJsonResponse(HttpServletResponse response, HttpStatus status, Object body) throws IOException {
-        response.setStatus(status.value());
+    private void sendJsonResponse(HttpServletResponse response, Object body) throws IOException {
+        response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
         ObjectMapper mapper = new ObjectMapper();
