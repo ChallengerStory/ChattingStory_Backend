@@ -1,8 +1,10 @@
 package com.challengerstory.chattingstory.user.command.application.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.challengerstory.chattingstory.user.command.aggregate.dto.normal.NormalLoginResponseDTO;
+import com.challengerstory.chattingstory.user.command.aggregate.vo.NewUserRequest;
 
 public interface AppUserService  {
+
+    NormalLoginResponseDTO registNormalUser(NewUserRequest newUserRequest);
 }
