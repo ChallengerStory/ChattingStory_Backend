@@ -23,7 +23,7 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
     private final JwtAuthenticator jwtAuthenticator;
     private final CustomSecurityProperties customSecurityProperties;
-
+    private final CustomSecurityExceptionHandler customSecurityExceptionHandler;
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
         try {
@@ -34,7 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         } catch(CommonException e){
-            CustomSecurityExceptionHandler.handleAuthenticationException(response, e.getErrorCode());
+            customSecurityExceptionHandler.handleAuthenticationException(response, e.getErrorCode());
         }
     }
 

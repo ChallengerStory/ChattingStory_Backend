@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Component
 public class SecurityResponseHandler {
 
-    public static void onLoginSuccess(HttpServletRequest request, HttpServletResponse response,
+    public void onLoginSuccess(HttpServletRequest request, HttpServletResponse response,
                                Authentication authentication) throws IOException {
         CustomUser userDetails = (CustomUser) authentication.getPrincipal();
         NormalLoginResponseDTO loginResponse = new NormalLoginResponseDTO(LocalDateTime.now(), userDetails.getUserId(), userDetails.getUsername(), userDetails.getUserType(), userDetails.getUserLogin());
@@ -26,9 +26,12 @@ public class SecurityResponseHandler {
         sendJsonResponse(response, successResponse);
     }
 
+    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ResponseDTO<?> logoutResponse = ResponseDTO.ok("logout 완료");
+        sendJsonResponse(response, logoutResponse);
+    }
 
-
-    private static void sendJsonResponse(HttpServletResponse response, Object body) throws IOException {
+    private void sendJsonResponse(HttpServletResponse response, Object body) throws IOException {
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
