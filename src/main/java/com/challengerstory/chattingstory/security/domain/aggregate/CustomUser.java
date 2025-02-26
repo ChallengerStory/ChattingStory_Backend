@@ -1,8 +1,6 @@
-package com.challengerstory.chattingstory.security.aggregate;
+package com.challengerstory.chattingstory.security.domain.aggregate;
 
 import com.challengerstory.chattingstory.user.command.aggregate.entity.UserEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

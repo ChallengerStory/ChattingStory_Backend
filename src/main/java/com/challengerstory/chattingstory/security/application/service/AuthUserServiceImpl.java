@@ -1,12 +1,11 @@
 package com.challengerstory.chattingstory.security.application.service;
 
-import com.challengerstory.chattingstory.security.aggregate.CustomUser;
+import com.challengerstory.chattingstory.security.domain.aggregate.CustomUser;
 import com.challengerstory.chattingstory.user.command.aggregate.entity.UserEntity;
 import com.challengerstory.chattingstory.user.command.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 

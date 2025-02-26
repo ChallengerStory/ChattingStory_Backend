@@ -1,6 +1,6 @@
 package com.challengerstory.chattingstory.security.infrastructure.jwt;
 
-import com.challengerstory.chattingstory.security.aggregate.CustomUser;
+import com.challengerstory.chattingstory.security.domain.aggregate.CustomUser;
 import com.challengerstory.chattingstory.security.application.service.AuthUserService;
 import com.challengerstory.chattingstory.security.config.CustomSecurityProperties;
 import io.jsonwebtoken.Claims;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class TokenProvider {
+public class JwtProvider {
 
     private final AuthUserService authUserService;
     private final JwtUtil jwtUtil;

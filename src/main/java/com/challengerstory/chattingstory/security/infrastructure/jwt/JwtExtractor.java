@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 @Slf4j
 @Component
-public class TokenExtractor {
+public class JwtExtractor {
 
     public String extractAccessToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");

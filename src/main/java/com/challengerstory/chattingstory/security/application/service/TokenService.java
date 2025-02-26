@@ -1,9 +1,10 @@
-package com.challengerstory.chattingstory.security.infrastructure.jwt;
+package com.challengerstory.chattingstory.security.application.service;
 
 
 import com.challengerstory.chattingstory.common.exception.CommonException;
 import com.challengerstory.chattingstory.common.exception.ErrorCode;
-import com.challengerstory.chattingstory.security.infrastructure.persistence.TokenStore;
+import com.challengerstory.chattingstory.security.infrastructure.jwt.JwtUtil;
+import com.challengerstory.chattingstory.security.domain.repository.TokenStore;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,9 +1,7 @@
 package com.challengerstory.chattingstory.security.filter;
 
-import com.challengerstory.chattingstory.security.aggregate.dto.NormalLoginRequestDTO;
+import com.challengerstory.chattingstory.security.application.dto.NormalLoginRequestDTO;
 import com.challengerstory.chattingstory.security.response.SecurityResponseHandler;
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -23,14 +21,12 @@ import java.util.ArrayList;
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final ObjectMapper objectMapper;
-    private final SecurityResponseHandler securityResponseHandler;
 
     public AuthenticationFilter(AuthenticationManager authenticationManager,
                                 SecurityResponseHandler securityResponseHandler,
                                 ObjectMapper objectMapper) {
         super(authenticationManager);
         this.objectMapper = objectMapper;
-        this.securityResponseHandler = securityResponseHandler;
     }
 
     @Override
@@ -54,6 +50,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        securityResponseHandler.onLoginSuccess(request, response, authResult);
+        SecurityResponseHandler.onLoginSuccess(request, response, authResult);
     }
 }

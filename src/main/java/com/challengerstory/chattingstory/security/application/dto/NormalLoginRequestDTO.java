@@ -1,4 +1,4 @@
-package com.challengerstory.chattingstory.security.aggregate.dto;
+package com.challengerstory.chattingstory.security.application.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

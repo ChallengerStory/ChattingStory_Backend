@@ -1,6 +1,7 @@
 package com.challengerstory.chattingstory.security.infrastructure.persistence;
 
 import com.challengerstory.chattingstory.security.config.CustomSecurityProperties;
+import com.challengerstory.chattingstory.security.domain.repository.TokenStore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 @Repository
 @RequiredArgsConstructor
-public class RedisTokenStore implements TokenStore{
+public class RedisTokenStore implements TokenStore {
     private static final String REFRESH_TOKEN_PREFIX = "RT:";
     private static final String BLACKLIST_PREFIX = "BL:";
 

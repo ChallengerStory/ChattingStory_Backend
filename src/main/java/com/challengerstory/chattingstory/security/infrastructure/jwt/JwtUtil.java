@@ -1,6 +1,6 @@
 package com.challengerstory.chattingstory.security.infrastructure.jwt;
 
-import com.challengerstory.chattingstory.security.aggregate.CustomUser;
+import com.challengerstory.chattingstory.security.domain.aggregate.CustomUser;
 import com.challengerstory.chattingstory.security.application.service.AuthUserService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
