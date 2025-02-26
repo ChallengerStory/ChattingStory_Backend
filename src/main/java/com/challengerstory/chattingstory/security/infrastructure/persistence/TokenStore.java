@@ -1,4 +1,4 @@
-package com.challengerstory.chattingstory.security.token.respository;
+package com.challengerstory.chattingstory.security.infrastructure.persistence;
 
 public interface TokenStore {
     void saveRefreshToken(String email, String refreshToken);

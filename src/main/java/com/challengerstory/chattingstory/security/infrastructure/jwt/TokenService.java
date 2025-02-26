@@ -1,11 +1,9 @@
-package com.challengerstory.chattingstory.security.token.service;
+package com.challengerstory.chattingstory.security.infrastructure.jwt;
 
 
-import com.challengerstory.chattingstory.security.response.exception.AuthErrorCode;
-import com.challengerstory.chattingstory.security.response.exception.CustomAuthException;
-import com.challengerstory.chattingstory.security.token.respository.TokenStore;
-import com.challengerstory.chattingstory.security.token.util.JwtUtil;
-import com.challengerstory.chattingstory.security.token.util.TokenProvider;
+import com.challengerstory.chattingstory.common.exception.CommonException;
+import com.challengerstory.chattingstory.common.exception.ErrorCode;
+import com.challengerstory.chattingstory.security.infrastructure.persistence.TokenStore;
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,17 +30,17 @@ public class TokenService {
     public void validateRefreshToken(String email, String refreshToken) {
         String storedToken = tokenStore.getRefreshToken(email);
         if (storedToken == null) {
-            throw new CustomAuthException(AuthErrorCode.REFRESH_TOKEN_NOT_FOUND);
+            throw new CommonException(ErrorCode.REFRESH_TOKEN_NOT_FOUND);
         }
         if (!storedToken.equals(refreshToken)) {
             tokenStore.removeRefreshToken(email);
-            throw new CustomAuthException(AuthErrorCode.INVALID_REFRESH_TOKEN);
+            throw new CommonException(ErrorCode.INVALID_REFRESH_TOKEN);
         }
     }
 
     public boolean validateAccessToken(String accessToken) {
         if (tokenStore.isBlacklisted(accessToken)) {
-            throw new CustomAuthException(AuthErrorCode.ACCESS_TOKEN_BLACKLISTED);
+            throw new CommonException(ErrorCode.ACCESS_TOKEN_BLACKLISTED);
         }
         return true;
     }

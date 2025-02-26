@@ -1,4 +1,4 @@
-package com.challengerstory.chattingstory.security.token.util;
+package com.challengerstory.chattingstory.security.infrastructure.jwt;
 
 import com.challengerstory.chattingstory.security.aggregate.CustomUser;
 import com.challengerstory.chattingstory.security.application.service.AuthUserService;

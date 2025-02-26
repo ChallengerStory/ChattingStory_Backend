@@ -1,4 +1,4 @@
-package com.challengerstory.chattingstory.security.token.util;
+package com.challengerstory.chattingstory.security.infrastructure.jwt;
 
 import com.challengerstory.chattingstory.security.response.exception.AuthErrorCode;
 import com.challengerstory.chattingstory.security.response.exception.CustomAuthException;

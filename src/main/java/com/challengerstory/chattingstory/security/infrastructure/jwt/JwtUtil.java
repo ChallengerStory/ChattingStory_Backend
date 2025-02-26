@@ -1,8 +1,7 @@
-package com.challengerstory.chattingstory.security.token.util;
+package com.challengerstory.chattingstory.security.infrastructure.jwt;
 
 import com.challengerstory.chattingstory.security.aggregate.CustomUser;
 import com.challengerstory.chattingstory.security.application.service.AuthUserService;
-import com.challengerstory.chattingstory.user.command.application.service.AppUserService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

@@ -1,4 +1,4 @@
-package com.challengerstory.chattingstory.security.token.respository;
+package com.challengerstory.chattingstory.security.infrastructure.persistence;
 
 import com.challengerstory.chattingstory.security.config.CustomSecurityProperties;
 import lombok.RequiredArgsConstructor;

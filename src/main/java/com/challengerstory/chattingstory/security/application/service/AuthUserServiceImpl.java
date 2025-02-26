@@ -22,7 +22,7 @@ public class AuthUserServiceImpl implements AuthUserService{
     public CustomUser loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByEmail(email);
         if(user == null){
-            throw new UsernameNotFoundException(email+"not found");
+            throw new UsernameNotFoundException(email+" not found");
         }
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
