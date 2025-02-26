@@ -48,14 +48,14 @@ dependencies {
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 
 	// 테스트 코드에서도 롬복 적용(로그 기능 활용을 위한 추가)
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
-
+	// Mail 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 }
 

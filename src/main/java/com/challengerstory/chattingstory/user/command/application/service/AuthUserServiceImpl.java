@@ -28,4 +28,16 @@ public class AuthUserServiceImpl implements AuthUserService{
 
         return new CustomUser(user, grantedAuthorities, user.getUserId(), user.getUserType().toString(), user.getUserLogin());
     }
+
+    @Override
+    public Boolean isEmailAvailable(String email) {
+
+        UserEntity user = userRepository.findByEmail(email);
+        if (user == null){
+            return Boolean.TRUE;
+        }
+        else{
+            return Boolean.FALSE;
+        }
+    }
 }

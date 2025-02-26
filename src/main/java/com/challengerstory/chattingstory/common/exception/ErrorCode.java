@@ -43,7 +43,7 @@ public enum ErrorCode {
     MULTIPLE_LOGIN_DETECTED(4000006, HttpStatus.BAD_REQUEST, "다중 로그인이 감지되었습니다"),
     REFRESH_AUTHENTICATION_FAILED(4000007, HttpStatus.BAD_REQUEST, "토큰 재발급 실패"),
     JWT_AUTHENTICATION_ERROR(4000008, HttpStatus.BAD_REQUEST, "JWT 검증중 에러가 발생했습니다"),
-
+    EMAIL_ALREADY_EXISTS(4000009, HttpStatus.BAD_REQUEST, "이미 존재하는 이메일입니다."),
 
     INTERNAL_SERVER_ERROR(50000, HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류입니다");
 
