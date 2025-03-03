@@ -33,7 +33,7 @@ public class JwtProvider {
         return buildToken(claims, customSecurityProperties.getAccessExpirationTime());
     }
 
-    /* subject: email(OAuth 유저의 경우 userLogin@UserType.com 형식으로 저장) */
+    /* subject: email(OAuth 유저의 경우 userIdentifier@UserType.com 형식으로 저장) */
     public String buildToken(CustomUser user, Long expiration){
         Claims claims = Jwts.claims().setSubject(user.getUsername());
         claims.put("auth", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));

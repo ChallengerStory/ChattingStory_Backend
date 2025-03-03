@@ -11,6 +11,5 @@ public class NewUserRequest{
     @JsonProperty("password")
     String password;
 
-    @JsonProperty("user_login")
-    String userLogin;
+
 }

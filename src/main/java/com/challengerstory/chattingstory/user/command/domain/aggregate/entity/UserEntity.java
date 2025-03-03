@@ -18,8 +18,8 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(name = "user_login", nullable = false)
-    private String userLogin;
+    @Column(name = "user_identifier", nullable = false)
+    private String userIdentifier;
 
     @Column(name = "email", nullable = false)
     private String email;

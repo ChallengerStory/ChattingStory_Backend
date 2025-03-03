@@ -20,20 +20,20 @@ public class AuthController {
         return ResponseDTO.ok("AT 재발급 성공");
     }
 
-    @PostMapping("/email-check")
+    @GetMapping("/check-email")
     public ResponseDTO<?> checkEmail(@RequestParam String email){
         log.debug("email: {}", email);
         return ResponseDTO.ok(authUserService.isEmailAvailable(email));
     }
 
-    @PostMapping("/send-verification")
+    @GetMapping("/send-verification")
     public ResponseDTO<?> sendVerificationCode(@RequestParam String email){
         log.debug("email: {}", email);
         emailVerificationService.sendVerificationCode(email);
         return ResponseDTO.ok(email+"이메일 전송 완료");
     }
 
-    @PostMapping("/verify-code")
+    @GetMapping("/verify-code")
     public ResponseDTO<?> verifyCode(@RequestParam String email, @RequestParam String code){
         log.debug("email: {}", email);
         log.debug("code: {}", code);

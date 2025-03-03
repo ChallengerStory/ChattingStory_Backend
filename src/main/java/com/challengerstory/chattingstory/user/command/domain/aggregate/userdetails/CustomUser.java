@@ -15,13 +15,13 @@ import java.util.Collection;
 public class CustomUser extends User {
     private Long userId;
     private String userType;
-    private String userLogin;
+    private String userIdentifier;
 
-    public CustomUser(UserEntity userEntity, Collection<?extends GrantedAuthority> authorities, Long userId, String userType, String userLogin){
+    public CustomUser(UserEntity userEntity, Collection<?extends GrantedAuthority> authorities, Long userId, String userType, String userIdentifier){
         super(userEntity.getEmail(), userEntity.getPassword(), authorities);
         this.userId = userId;
         this.userType = userType;
-        this.userLogin = userLogin;
+        this.userIdentifier = userIdentifier;
 
     }
 }

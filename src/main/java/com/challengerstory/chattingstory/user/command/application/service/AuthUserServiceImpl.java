@@ -32,7 +32,7 @@ public class AuthUserServiceImpl implements AuthUserService{
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
 
-        return new CustomUser(user, grantedAuthorities, user.getUserId(), user.getUserType().toString(), user.getUserLogin());
+        return new CustomUser(user, grantedAuthorities, user.getUserId(), user.getUserType().toString(), user.getUserIdentifier());
     }
 
     @Override
@@ -51,7 +51,7 @@ public class AuthUserServiceImpl implements AuthUserService{
     public NormalLoginRequestDTO registNewUser(NewUserRequest newUser) {
         UserEntity userToCreate = modelMapper.map(newUser, UserEntity.class);
         userToCreate.setUserType(UserType.NORMAL);
-        userToCreate.setUserLogin(newUser.getEmail());
+        userToCreate.setUserIdentifier(newUser.getEmail());
         return modelMapper.map(userRepository.save(userToCreate), NormalLoginRequestDTO.class);
     }
 }

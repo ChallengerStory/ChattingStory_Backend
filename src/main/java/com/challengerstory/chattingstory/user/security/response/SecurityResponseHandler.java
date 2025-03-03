@@ -20,7 +20,7 @@ public class SecurityResponseHandler {
     public void onLoginSuccess(HttpServletRequest request, HttpServletResponse response,
                                Authentication authentication) throws IOException {
         CustomUser userDetails = (CustomUser) authentication.getPrincipal();
-        NormalLoginResponseDTO loginResponse = new NormalLoginResponseDTO(LocalDateTime.now(), userDetails.getUserId(), userDetails.getUsername(), userDetails.getUserType(), userDetails.getUserLogin());
+        NormalLoginResponseDTO loginResponse = new NormalLoginResponseDTO(LocalDateTime.now(), userDetails.getUserId(), userDetails.getUsername(), userDetails.getUserType(), userDetails.getUserIdentifier());
 
         ResponseDTO<?> successResponse = ResponseDTO.ok(loginResponse);
         sendJsonResponse(response, successResponse);
