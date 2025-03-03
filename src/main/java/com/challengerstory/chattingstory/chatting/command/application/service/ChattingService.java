@@ -2,12 +2,9 @@ package com.challengerstory.chattingstory.chatting.command.application.service;
 
 
 import com.challengerstory.chattingstory.chatting.aggregate.entity.ChatMessage;
-import com.challengerstory.chattingstory.chatting.aggregate.entity.ChatRoom;
 import com.challengerstory.chattingstory.chatting.aggregate.entity.MessageType;
 import com.challengerstory.chattingstory.chatting.command.respository.ChatMessageRepository;
-import com.challengerstory.chattingstory.chatting.command.respository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -26,8 +23,10 @@ public class ChattingService {
 
     /**
      * 채팅 메시지 전송
+     *
+     * @return
      */
-    public void sendMessage(ChatMessage chatMessage) {
+    public ChatMessage sendMessage(ChatMessage chatMessage) {
         // 메시지 타입이 지정되지 않은 경우 CHAT으로 설정
         if (chatMessage.getType() == null) {
             chatMessage.setType(MessageType.CHAT);
@@ -42,6 +41,7 @@ public class ChattingService {
         // WebSocket을 통해 메시지 전송
         messagingTemplate.convertAndSend("/topic/chat/" + chatMessage.getRoomId(), chatMessage);
 
+        return chatMessage;
     }
 
 

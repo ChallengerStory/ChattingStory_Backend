@@ -2,10 +2,15 @@ package com.challengerstory.chattingstory.chatting.command.application.controlle
 
 import com.challengerstory.chattingstory.chatting.aggregate.entity.ChatMessage;
 import com.challengerstory.chattingstory.chatting.command.application.service.ChattingService;
+import com.challengerstory.chattingstory.common.ResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -13,15 +18,28 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChattingMessageController {
 
     private final ChattingService chattingService;
+    private final SimpMessagingTemplate messagingTemplate;
 
     /**
-     * 메시지 전송 엔드포인트
+     * WebSocket을 통한 메시지 전송 엔드포인트
      */
     @MessageMapping("/send-message")
-    public void sendMessage(ChatMessage chatMessage) {
-        chattingService.sendMessage(chatMessage);
+    public void sendMessage(@Payload ChatMessage chatMessage) {
+        ChatMessage savedMessage = chattingService.sendMessage(chatMessage);
+        // 채팅방 참가자들에게 메시지 브로드캐스트
+        messagingTemplate.convertAndSend("/topic/room/" + chatMessage.getRoomId(), savedMessage);
     }
 
+    /**
+     * 특정 채팅방의 메시지 조회
+     */
+    @GetMapping("/room/{roomId}/messages")
+    public ResponseDTO<?> getRoomMessages(
+            @PathVariable String roomId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        return ResponseDTO.ok(chattingService.getChatMessages(roomId, page, size));
+    }
 
 
 }
