@@ -1,16 +1,21 @@
 package com.challengerstory.chattingstory.chatting.aggregate.entity;
 
 import jakarta.persistence.Id;
+import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
-
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection="chattingroom")
-public class ChattingRoom {
+public class ChatRoom {
     @Id
     private String chattingRoomId;
 
-    private String name;
-    private List<Long> members;
+    private String title;
+    private List<String> participants;
 
 }

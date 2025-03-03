@@ -14,13 +14,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection="message")
-public class Message {
+public class ChatMessage {
 
     @Id
     private String messageId;
     private String roomId;
-    private Long senderId;
+    private String senderId;
     private String content;
     private LocalDateTime createdAt;
+    private MessageType type;
 
 }
