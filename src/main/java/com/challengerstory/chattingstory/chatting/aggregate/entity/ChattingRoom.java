@@ -11,9 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection="chattingroom")
-public class ChatRoom {
+public class ChattingRoom {
     @Id
-    private String chattingRoomId;
+    private String id;
 
     private String title;
     private List<String> participants;

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection="message")
-public class ChatMessage {
+public class ChattingMessage {
 
     @Id
     private String messageId;

@@ -1,20 +1,17 @@
 package com.challengerstory.chattingstory.chatting.command.application.controller;
 
-import com.challengerstory.chattingstory.chatting.aggregate.entity.ChatMessage;
+import com.challengerstory.chattingstory.chatting.aggregate.entity.ChattingMessage;
 import com.challengerstory.chattingstory.chatting.command.application.service.ChattingService;
 import com.challengerstory.chattingstory.common.ResponseDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/chatting")
+@RequestMapping("/api/chat/messages")
 public class ChattingMessageController {
 
     private final ChattingService chattingService;
@@ -24,10 +21,10 @@ public class ChattingMessageController {
      * WebSocket을 통한 메시지 전송 엔드포인트
      */
     @MessageMapping("/send-message")
-    public void sendMessage(@Payload ChatMessage chatMessage) {
-        ChatMessage savedMessage = chattingService.sendMessage(chatMessage);
+    public void sendMessage(@Payload ChattingMessage chattingMessage) {
+        ChattingMessage savedMessage = chattingService.sendMessage(chattingMessage);
         // 채팅방 참가자들에게 메시지 브로드캐스트
-        messagingTemplate.convertAndSend("/topic/room/" + chatMessage.getRoomId(), savedMessage);
+        messagingTemplate.convertAndSend("/topic/room/" + chattingMessage.getRoomId(), savedMessage);
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.challengerstory.chattingstory.chatting.command.application.service;
 
 
-import com.challengerstory.chattingstory.chatting.aggregate.entity.ChatMessage;
+import com.challengerstory.chattingstory.chatting.aggregate.entity.ChattingMessage;
 import com.challengerstory.chattingstory.chatting.aggregate.entity.MessageType;
 import com.challengerstory.chattingstory.chatting.command.respository.ChatMessageRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,29 +26,29 @@ public class ChattingService {
      *
      * @return
      */
-    public ChatMessage sendMessage(ChatMessage chatMessage) {
+    public ChattingMessage sendMessage(ChattingMessage chattingMessage) {
         // 메시지 타입이 지정되지 않은 경우 CHAT으로 설정
-        if (chatMessage.getType() == null) {
-            chatMessage.setType(MessageType.CHAT);
+        if (chattingMessage.getType() == null) {
+            chattingMessage.setType(MessageType.CHAT);
         }
 
         // 타임스탬프 설정
-        chatMessage.setCreatedAt(LocalDateTime.now());
+        chattingMessage.setCreatedAt(LocalDateTime.now());
 
         // 메시지 저장
-        chatMessage = chatMessageRepository.save(chatMessage);
+        chattingMessage = chatMessageRepository.save(chattingMessage);
 
         // WebSocket을 통해 메시지 전송
-        messagingTemplate.convertAndSend("/topic/chat/" + chatMessage.getRoomId(), chatMessage);
+        messagingTemplate.convertAndSend("/topic/chat/" + chattingMessage.getRoomId(), chattingMessage);
 
-        return chatMessage;
+        return chattingMessage;
     }
 
 
     /**
      * 채팅방 메시지 조회
      */
-    public List<ChatMessage> getChatMessages(String roomId, int page, int size) {
+    public List<ChattingMessage> getChatMessages(String roomId, int page, int size) {
         // 페이징 처리 및 정렬 (최신 메시지부터)
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "timestamp"));
         return chatMessageRepository.findByRoomIdOrderByCreatedAtDesc(roomId, pageRequest);
