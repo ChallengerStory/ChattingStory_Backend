@@ -14,6 +14,5 @@ import java.util.List;
 public interface ChatMessageRepository extends MongoRepository<ChatMessage, String> {
     List<ChatMessage> findByRoomIdOrderByCreatedAtDesc(String roomId, Pageable pageable);
     List<ChatMessage> findBySenderId(String senderId);
-    List<ChatMessage> findByMentionsContaining(String userId);
 
 }
