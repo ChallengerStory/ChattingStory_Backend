@@ -54,8 +54,12 @@ dependencies {
 	// 테스트 코드에서도 롬복 적용(로그 기능 활용을 위한 추가)
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+
 	// Mail 라이브러리
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	// MongoDB
+	implementation 'org.mongodb:mongodb-driver-sync:5.3.0'
 
 }
 
