@@ -59,7 +59,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 	// MongoDB
-	implementation 'org.mongodb:mongodb-driver-sync:5.3.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+	// messaging
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'org.springframework:spring-messaging'
+
 
 }
 
