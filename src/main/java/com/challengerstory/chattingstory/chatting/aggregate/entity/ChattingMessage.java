@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class ChattingMessage {
 
     @Id
-    private String messageId;
+    private String id;
     private String roomId;
     private String senderId;
     private String content;
