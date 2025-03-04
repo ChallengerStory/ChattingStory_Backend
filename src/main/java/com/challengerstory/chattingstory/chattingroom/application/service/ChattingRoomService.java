@@ -22,5 +22,4 @@ public class ChattingRoomService {
         return chattingRoomRepository.findAll();
     }
 
-
 }
