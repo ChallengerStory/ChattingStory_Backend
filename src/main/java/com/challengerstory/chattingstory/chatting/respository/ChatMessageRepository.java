@@ -1,4 +1,4 @@
-package com.challengerstory.chattingstory.chatting.command.respository;
+package com.challengerstory.chattingstory.chatting.respository;
 
 import com.challengerstory.chattingstory.chatting.aggregate.entity.ChattingMessage;
 import org.springframework.data.domain.Pageable;

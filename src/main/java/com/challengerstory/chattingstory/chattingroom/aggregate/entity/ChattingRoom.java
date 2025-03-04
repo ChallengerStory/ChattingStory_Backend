@@ -1,4 +1,4 @@
-package com.challengerstory.chattingstory.chatting.aggregate.entity;
+package com.challengerstory.chattingstory.chattingroom.aggregate.entity;
 
 import jakarta.persistence.Id;
 import lombok.*;

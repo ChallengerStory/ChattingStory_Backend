@@ -1,9 +1,9 @@
-package com.challengerstory.chattingstory.chatting.command.application.service;
+package com.challengerstory.chattingstory.chatting.application.service;
 
 
 import com.challengerstory.chattingstory.chatting.aggregate.entity.ChattingMessage;
 import com.challengerstory.chattingstory.chatting.aggregate.entity.MessageType;
-import com.challengerstory.chattingstory.chatting.command.respository.ChatMessageRepository;
+import com.challengerstory.chattingstory.chatting.respository.ChatMessageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
