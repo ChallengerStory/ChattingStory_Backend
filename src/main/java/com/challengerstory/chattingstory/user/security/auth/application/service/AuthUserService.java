@@ -1,5 +1,6 @@
 package com.challengerstory.chattingstory.user.security.auth.application.service;
 
+import com.challengerstory.chattingstory.user.command.domain.aggregate.entity.UserType;
 import com.challengerstory.chattingstory.user.security.auth.aggregate.dto.normal.NormalLoginRequestDTO;
 import com.challengerstory.chattingstory.user.security.auth.aggregate.vo.NewUserRequest;
 import com.challengerstory.chattingstory.user.security.auth.aggregate.userdetails.CustomUser;
@@ -13,4 +14,6 @@ public interface AuthUserService extends UserDetailsService {
     Boolean isEmailAvailable(String email);
 
     NormalLoginRequestDTO registNewUser(NewUserRequest newUser);
+
+    CustomUser registOAuth2User(UserType userType, String id, String username);
 }
