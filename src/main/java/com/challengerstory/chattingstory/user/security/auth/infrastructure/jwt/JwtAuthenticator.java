@@ -2,7 +2,7 @@ package com.challengerstory.chattingstory.user.security.auth.infrastructure.jwt;
 
 import com.challengerstory.chattingstory.common.exception.CommonException;
 import com.challengerstory.chattingstory.common.exception.ErrorCode;
-import com.challengerstory.chattingstory.user.security.auth.application.service.AuthUserService;
+import com.challengerstory.chattingstory.user.security.auth.application.service.OAuth2UserService;
 import com.challengerstory.chattingstory.user.security.auth.application.service.TokenService;
 import com.challengerstory.chattingstory.user.security.auth.aggregate.userdetails.CustomUser;
 import io.jsonwebtoken.Claims;
@@ -28,7 +28,7 @@ public class JwtAuthenticator {
     private final JwtExtractor jwtExtractor;
     private final JwtUtil jwtUtil;
     private final JwtProvider jwtProvider;
-    private final AuthUserService authUserService;
+    private final OAuth2UserService OAuth2UserService;
 
     public Authentication processAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String accessToken = jwtExtractor.extractAccessToken(request);
@@ -58,7 +58,7 @@ public class JwtAuthenticator {
     }
 
     private Authentication getAuthentication(String email){
-        CustomUser user = authUserService.loadUserByUsername(email);
+        CustomUser user = OAuth2UserService.loadUserByUsername(email);
         return new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
     }
 }

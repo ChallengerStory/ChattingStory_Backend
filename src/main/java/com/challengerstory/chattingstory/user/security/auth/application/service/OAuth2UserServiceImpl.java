@@ -2,6 +2,7 @@ package com.challengerstory.chattingstory.user.security.auth.application.service
 
 import com.challengerstory.chattingstory.user.command.domain.aggregate.entity.UserRole;
 import com.challengerstory.chattingstory.user.command.domain.aggregate.entity.UserType;
+import com.challengerstory.chattingstory.user.security.auth.aggregate.dto.oauth2.OAuth2RequestDTO;
 import com.challengerstory.chattingstory.user.security.auth.aggregate.userdetails.CustomUser;
 import com.challengerstory.chattingstory.user.command.domain.aggregate.entity.UserEntity;
 import com.challengerstory.chattingstory.user.command.domain.repository.UserRepository;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AuthUserServiceImpl implements AuthUserService{
+public class OAuth2UserServiceImpl implements OAuth2UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
@@ -34,6 +35,11 @@ public class AuthUserServiceImpl implements AuthUserService{
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.getUserRole().name()));
         return new CustomUser(user, authorities);
+    }
+
+    @Override
+    public CustomUser processOAuth2User(OAuth2RequestDTO oAuth2RequestDTO) {
+        return null;
     }
 
     @Override

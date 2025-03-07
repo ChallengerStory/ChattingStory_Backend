@@ -1,7 +1,7 @@
 package com.challengerstory.chattingstory.user.security.auth.infrastructure.jwt;
 
 import com.challengerstory.chattingstory.user.security.auth.aggregate.userdetails.CustomUser;
-import com.challengerstory.chattingstory.user.security.auth.application.service.AuthUserService;
+import com.challengerstory.chattingstory.user.security.auth.application.service.OAuth2UserService;
 import com.challengerstory.chattingstory.user.security.config.CustomSecurityProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Component
 public class JwtProvider {
 
-    private final AuthUserService authUserService;
+    private final OAuth2UserService OAuth2UserService;
     private final JwtUtil jwtUtil;
     private final CustomSecurityProperties customSecurityProperties;
 

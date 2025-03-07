@@ -1,6 +1,6 @@
 package com.challengerstory.chattingstory.user.security.config;
 
-import com.challengerstory.chattingstory.user.security.auth.application.service.AuthUserService;
+import com.challengerstory.chattingstory.user.security.auth.application.service.OAuth2UserService;
 import com.challengerstory.chattingstory.user.security.auth.application.service.TokenService;
 import com.challengerstory.chattingstory.user.security.filter.CustomLogoutFilter;
 import com.challengerstory.chattingstory.user.security.filter.JwtFilter;
@@ -33,7 +33,7 @@ import java.util.List;
 public class WebSecurity {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final AuthUserService authUserService;
+    private final OAuth2UserService OAuth2UserService;
     private final TokenService tokenService;
     private final JwtUtil jwtUtil;
     private final JwtAuthenticator jwtAuthenticator;
@@ -49,7 +49,7 @@ public class WebSecurity {
 
         AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(authUserService)
+        authenticationManagerBuilder.userDetailsService(OAuth2UserService)
                 .passwordEncoder(bCryptPasswordEncoder);
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
 

@@ -1,9 +1,10 @@
-package com.challengerstory.chattingstory.user.security.auth.application.service.oauth2;
+package com.challengerstory.chattingstory.user.security.auth.infrastructure.oauth2;
 
 import com.challengerstory.chattingstory.user.command.domain.aggregate.entity.UserType;
+import com.challengerstory.chattingstory.user.security.auth.aggregate.dto.oauth2.OAuth2RequestDTO;
 import com.challengerstory.chattingstory.user.security.auth.aggregate.dto.oauth2.OAuth2ResponseDTO;
 import com.challengerstory.chattingstory.user.security.auth.aggregate.userdetails.CustomUser;
-import com.challengerstory.chattingstory.user.security.auth.application.service.AuthUserService;
+import com.challengerstory.chattingstory.user.security.auth.application.service.OAuth2UserService;
 import com.challengerstory.chattingstory.user.security.auth.application.service.TokenService;
 import com.challengerstory.chattingstory.user.security.auth.infrastructure.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class GoogleOAuth2ServiceImpl implements GoogleOAuth2Service {
+public class GoogleOAuth2ClientImpl implements GoogleOAuth2Client {
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientId;
@@ -36,22 +37,22 @@ public class GoogleOAuth2ServiceImpl implements GoogleOAuth2Service {
     private String redirectUri;
 
     private final RestTemplate restTemplate;
-    private final AuthUserService authUserService;
+    private final OAuth2UserService OAuth2UserService;
     private final JwtProvider jwtProvider;
     private final TokenService tokenService;
 
     @Override
-    public OAuth2ResponseDTO processGoogleUser(String code) {
-        String googleAccessToken = getGoogleAccessToken(code);
+    public OAuth2ResponseDTO processOAuth2User(OAuth2RequestDTO oAuth2RequestDTO) {
+        String googleAccessToken = getGoogleAccessToken(oAuth2RequestDTO.getCode());
         Map<String, String> userInfo = getGoogleUserInfo(googleAccessToken);
 
         log.debug("userInfo: {}", userInfo);
         CustomUser foundUser;
         try {
-            foundUser = authUserService.loadUserByUsername(UserType.GOOGLE.name()+"_"+userInfo.get("id"));
+            foundUser = OAuth2UserService.loadUserByUsername(UserType.GOOGLE.name()+"_"+userInfo.get("id"));
 
         }catch (UsernameNotFoundException e){
-            foundUser = authUserService.registOAuth2User(UserType.GOOGLE, userInfo.get("id"));
+            foundUser = OAuth2UserService.registOAuth2User(UserType.GOOGLE, userInfo.get("id"));
         }
         String accessToken = jwtProvider.generateAccessToken(foundUser);
         String refreshToken = jwtProvider.generateRefreshToken(foundUser);

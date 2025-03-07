@@ -10,9 +10,12 @@ import lombok.ToString;
 @Setter
 @ToString
 public class OAuth2RequestDTO {
+
     @JsonProperty("user_type")
     private UserType userType;
+
     private String code;
+
     private String state;
 
 }
