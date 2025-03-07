@@ -5,8 +5,11 @@ import com.challengerstory.chattingstory.user.security.auth.aggregate.dto.oauth2
 import com.challengerstory.chattingstory.user.security.auth.aggregate.dto.oauth2.OAuth2ResponseDTO;
 import com.challengerstory.chattingstory.user.security.auth.aggregate.userdetails.CustomUser;
 import com.challengerstory.chattingstory.user.security.auth.infrastructure.jwt.JwtProvider;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,7 +42,7 @@ public class GoogleOAuth2Service {
     private final TokenService tokenService;
 
 
-    public OAuth2ResponseDTO processGoogleOAuth2User(OAuth2RequestDTO request) {
+    public ResponseEntity<?> processGoogleOAuth2User(OAuth2RequestDTO request, HttpServletResponse response) {
         String googleAccessToken = getGoogleAccessToken(request.getCode());
         Map<String, String> userInfo = getGoogleUserInfo(googleAccessToken);
 
@@ -57,11 +60,19 @@ public class GoogleOAuth2Service {
         tokenService.saveRefreshToken(foundUser.getUsername(), refreshToken);
         OAuth2ResponseDTO res = new OAuth2ResponseDTO();
         res.setUserIdentifier(foundUser.getUserIdentifier());
-        res.setAccessToken(accessToken);
-        res.setRefreshToken(refreshToken);
         res.setProfileUrl(foundUser.getProfileUrl());
         res.setUserId(foundUser.getUserId());
-        return res;
+
+        HttpHeaders headers= new HttpHeaders();
+        headers.add("Authorization", accessToken);
+
+        Cookie cookie = new Cookie("refreshToken", refreshToken);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        return new ResponseEntity<>(res, headers, HttpStatus.OK);
     }
 
     private String getGoogleAccessToken(String code) {

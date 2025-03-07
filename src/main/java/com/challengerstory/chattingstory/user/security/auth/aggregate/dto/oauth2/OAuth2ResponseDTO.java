@@ -12,12 +12,6 @@ public class OAuth2ResponseDTO {
     @JsonProperty("user_identifier")
     String userIdentifier;
 
-    @JsonProperty("access_token")
-    String accessToken;
-
-    @JsonProperty("refresh_token")
-    String refreshToken;
-
     @JsonProperty("profile_url")
     String profileUrl;
 
