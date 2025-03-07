@@ -18,20 +18,16 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(name = "user_identifier", nullable = false)
-    private String userIdentifier;
-
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    @Column(name = "password", nullable = false)
-    private String password;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "user_type", nullable = false)
     private UserType userType;
 
-    @Column(name = "last_activated_at")
-    private LocalDateTime lastActivatedAt;
+    @Column(name = "user_identifier", nullable = false)
+    private String userIdentifier;
 
+    @Column(name = "profile_url")
+    private String profileUrl;
+
+    @Column(name = "password")
+    private String password;
 }

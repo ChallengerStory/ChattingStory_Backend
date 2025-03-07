@@ -17,11 +17,11 @@ public class CustomUser extends User {
     private String userType;
     private String userIdentifier;
 
-    public CustomUser(UserEntity userEntity, Collection<?extends GrantedAuthority> authorities, Long userId, String userType, String userIdentifier){
-        super(userEntity.getEmail(), userEntity.getPassword(), authorities);
-        this.userId = userId;
-        this.userType = userType;
-        this.userIdentifier = userIdentifier;
+    public CustomUser(UserEntity userEntity, Collection<?extends GrantedAuthority> authorities){
+        super(userEntity.getUserType()+"@"+userEntity.getUserIdentifier(), userEntity.getPassword(), authorities);
+        this.userId = userEntity.getUserId();
+        this.userType = userEntity.getUserType().name();
+        this.userIdentifier = userEntity.getUserIdentifier();
 
     }
 }
