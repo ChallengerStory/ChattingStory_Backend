@@ -28,6 +28,9 @@ public class UserEntity {
     @Column(name = "profile_url")
     private String profileUrl;
 
+    @Column(name="user_role")
+    private UserRole userRole;
+
     @Column(name = "password")
     private String password;
 }

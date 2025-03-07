@@ -11,9 +11,5 @@ public interface AuthUserService extends UserDetailsService {
     @Override
     CustomUser loadUserByUsername(String username) throws UsernameNotFoundException;
 
-    Boolean isEmailAvailable(String email);
-
-    NormalLoginRequestDTO registNewUser(NewUserRequest newUser);
-
     CustomUser registOAuth2User(UserType userType, String id, String username);
 }
