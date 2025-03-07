@@ -2,7 +2,7 @@ package com.challengerstory.chattingstory.user.security.auth.application.control
 
 import com.challengerstory.chattingstory.common.ResponseDTO;
 import com.challengerstory.chattingstory.user.security.auth.aggregate.dto.oauth2.OAuth2RequestDTO;
-import com.challengerstory.chattingstory.user.security.auth.application.service.OAuth2UserService;
+import com.challengerstory.chattingstory.user.security.auth.application.service.GoogleOAuth2Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/oauth2")
 public class OAuth2Controller {
 
-    private final OAuth2UserService OAuth2UserService;
+    private final GoogleOAuth2Service googleOAuth2Service;
 
 
-    @PostMapping("/")
+    @PostMapping("/google")
     public ResponseDTO<?> processGoogleOAuth2User(@RequestBody OAuth2RequestDTO oauth2RequestDTO) {
         log.debug("oauth2RequestDTO: {}", oauth2RequestDTO);
-        return ResponseDTO.ok(OAuth2UserService.processOAuth2User(oauth2RequestDTO));
+        return ResponseDTO.ok(googleOAuth2Service.processGoogleOAuth2User(oauth2RequestDTO));
 
     }
 

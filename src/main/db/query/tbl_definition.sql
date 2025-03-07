@@ -1,3 +1,4 @@
+\about
 DROP DATABASE IF EXISTS chattingstorydb;
 
 CREATE DATABASE chattingstorydb DEFAULT CHARACTER SET UTF8 DEFAULT COLLATE UTF8_GENERAL_CI;
@@ -18,6 +19,7 @@ CREATE TABLE
         user_name VARCHAR(1023) NOT NULL,
         profile_url VARCHAR(1023),
         password VARCHAR(1023),
+        user_role VARCHAR(255) NOT NULL,
         PRIMARY KEY (user_id),
         UNIQUE INDEX UK_USER_TYPE_USER_NAME (user_type, user_identifier)
     );

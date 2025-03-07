@@ -48,11 +48,17 @@ public class GoogleOAuth2Service {
         try {
             foundUser = authUserService.loadUserByUsername(userIdentifier);
 
-        }catch (UsernameNotFoundException){
+        }catch (UsernameNotFoundException e){
             foundUser = authUserService.registOAuth2User(UserType.GOOGLE, userInfo.get("id"));
         }
-
-        return null;
+        String accessToken = jwtProvider.generateAccessToken(foundUser);
+        String refreshToken = jwtProvider.generateRefreshToken(foundUser);
+        tokenService.saveRefreshToken(foundUser.getUsername(), refreshToken);
+        OAuth2ResponseDTO res = new OAuth2ResponseDTO();
+        res.setUserIdentifier(foundUser.getUserIdentifier());
+        res.setAccessToken(accessToken);
+        res.setRefreshToken(refreshToken);
+        return res;
     }
 
     private String getGoogleAccessToken(String code) {
