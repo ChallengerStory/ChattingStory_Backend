@@ -19,8 +19,8 @@ public class OAuth2Controller {
     @PostMapping("/google/access_token")
     public ResponseDTO<?> processGoogleOAuth2User(@RequestBody OAuth2RequestDTO oAuth2RequestDTO) {
         log.debug("oAuth2RequestDTO: {}", oAuth2RequestDTO);
-        googleOAuth2Service.processGoogleUser(oAuth2RequestDTO.getCode());
-        return null;
+        return ResponseDTO.ok(googleOAuth2Service.processGoogleUser(oAuth2RequestDTO.getCode()));
+
     }
 
 }

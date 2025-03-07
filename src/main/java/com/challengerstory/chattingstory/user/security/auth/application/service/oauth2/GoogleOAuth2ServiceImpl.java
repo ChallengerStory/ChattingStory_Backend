@@ -2,8 +2,11 @@ package com.challengerstory.chattingstory.user.security.auth.application.service
 
 import com.challengerstory.chattingstory.user.command.domain.aggregate.entity.UserEntity;
 import com.challengerstory.chattingstory.user.command.domain.aggregate.entity.UserType;
+import com.challengerstory.chattingstory.user.security.auth.aggregate.dto.oauth2.OAuth2ResponseDTO;
 import com.challengerstory.chattingstory.user.security.auth.aggregate.userdetails.CustomUser;
 import com.challengerstory.chattingstory.user.security.auth.application.service.AuthUserService;
+import com.challengerstory.chattingstory.user.security.auth.application.service.TokenService;
+import com.challengerstory.chattingstory.user.security.auth.infrastructure.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,9 +38,11 @@ public class GoogleOAuth2ServiceImpl implements GoogleOAuth2Service {
 
     private final RestTemplate restTemplate;
     private final AuthUserService authUserService;
+    private final JwtProvider jwtProvider;
+    private final TokenService tokenService;
 
     @Override
-    public void processGoogleUser(String code) {
+    public OAuth2ResponseDTO processGoogleUser(String code) {
         String googleAccessToken = getGoogleAccessToken(code);
         Map<String, String> userInfo = getGoogleUserInfo(googleAccessToken);
 
@@ -49,7 +54,15 @@ public class GoogleOAuth2ServiceImpl implements GoogleOAuth2Service {
         }catch (UsernameNotFoundException e){
             foundUser = authUserService.registOAuth2User(UserType.GOOGLE, userInfo.get("id"), userInfo.get("username"));
         }
-        log.debug("foundUser: {}", foundUser);
+        String accessToken = jwtProvider.generateAccessToken(foundUser);
+        String refreshToken = jwtProvider.generateRefreshToken(foundUser);
+        tokenService.saveRefreshToken(foundUser.getUsername(), refreshToken);
+        OAuth2ResponseDTO res = new OAuth2ResponseDTO();
+        res.setUserIdentifier(foundUser.getUserIdentifier());
+        res.setAccessToken(accessToken);
+        res.setRefreshToken(refreshToken);
+
+        return res;
     }
 
     private String getGoogleAccessToken(String code) {
