@@ -1,12 +1,10 @@
 package com.challengerstory.chattingstory.user.security.auth.application.service;
 
 import com.challengerstory.chattingstory.user.command.domain.aggregate.entity.UserRole;
-import com.challengerstory.chattingstory.user.security.auth.aggregate.dto.normal.NormalLoginRequestDTO;
-import com.challengerstory.chattingstory.user.security.auth.aggregate.vo.NewUserRequest;
 import com.challengerstory.chattingstory.user.command.domain.aggregate.entity.UserType;
 import com.challengerstory.chattingstory.user.security.auth.aggregate.userdetails.CustomUser;
 import com.challengerstory.chattingstory.user.command.domain.aggregate.entity.UserEntity;
-import com.challengerstory.chattingstory.user.security.auth.repository.UserRepository;
+import com.challengerstory.chattingstory.user.command.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,15 +26,22 @@ public class AuthUserServiceImpl implements AuthUserService{
 
     @Override
     public CustomUser loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        UserEntity user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(username + " not found");
+        }
+
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getUserRole().name()));
+        return new CustomUser(user, authorities);
     }
 
     @Override
-    public CustomUser registOAuth2User(UserType userType, String id, String username) {
+    public CustomUser registOAuth2User(UserType userType, String id) {
         UserEntity userToCreate = new UserEntity();
         userToCreate.setUserType(userType);
+        userToCreate.setUsername(id);
         userToCreate.setPassword(bCryptPasswordEncoder.encode(id));
-        userToCreate.setUserIdentifier(userType.toString()+"@"+id);
         userToCreate.setUserRole(UserRole.ROLE_MEMBER);
 
         List<GrantedAuthority> authorities = new ArrayList<>();

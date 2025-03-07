@@ -22,6 +22,9 @@ public class UserEntity {
     @Column(name = "user_type", nullable = false)
     private UserType userType;
 
+    @Column(name="user_name", nullable = false)
+    private String username;
+
     @Column(name = "user_identifier", nullable = false)
     private String userIdentifier;
 
@@ -33,4 +36,14 @@ public class UserEntity {
 
     @Column(name = "password")
     private String password;
+
+    @PrePersist
+    @PreUpdate
+    private void generateUserIdentifier() {
+        // 구현에 따라 다른 생성 방식 사용
+        this.userIdentifier = userType.name() + "_" + username;
+    }
+
+
+
 }

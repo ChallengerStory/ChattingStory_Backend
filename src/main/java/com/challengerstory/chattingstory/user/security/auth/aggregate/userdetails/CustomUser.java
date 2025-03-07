@@ -21,7 +21,7 @@ public class CustomUser extends User {
     private String userIdentifier;
 
     public CustomUser(UserEntity userEntity, List<GrantedAuthority> authorities){
-        super(userEntity.getUserType()+"@"+userEntity.getUserIdentifier(), userEntity.getPassword(), authorities);
+        super(userEntity.getUserIdentifier(), userEntity.getPassword(), authorities);
         this.userId = userEntity.getUserId();
         this.userType = userEntity.getUserType().name();
         this.userIdentifier = userEntity.getUserIdentifier();

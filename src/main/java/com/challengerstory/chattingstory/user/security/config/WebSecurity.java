@@ -2,7 +2,6 @@ package com.challengerstory.chattingstory.user.security.config;
 
 import com.challengerstory.chattingstory.user.security.auth.application.service.AuthUserService;
 import com.challengerstory.chattingstory.user.security.auth.application.service.TokenService;
-import com.challengerstory.chattingstory.user.security.filter.AuthenticationFilter;
 import com.challengerstory.chattingstory.user.security.filter.CustomLogoutFilter;
 import com.challengerstory.chattingstory.user.security.filter.JwtFilter;
 import com.challengerstory.chattingstory.user.security.auth.infrastructure.jwt.JwtAuthenticator;
@@ -10,7 +9,6 @@ import com.challengerstory.chattingstory.user.security.auth.infrastructure.jwt.J
 import com.challengerstory.chattingstory.user.security.auth.infrastructure.jwt.JwtUtil;
 import com.challengerstory.chattingstory.user.security.response.CustomSecurityExceptionHandler;
 import com.challengerstory.chattingstory.user.security.response.SecurityResponseHandler;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -74,7 +72,6 @@ public class WebSecurity {
                             securityResponseHandler.onLogoutSuccess(request, response);
                         })
                 )
-                .addFilter(getAuthenticationFilter(authenticationManager))
                 .addFilterBefore(getJwtFilter(jwtAuthenticator, customSecurityProperties),
                         UsernamePasswordAuthenticationFilter.class);
 
@@ -89,16 +86,5 @@ public class WebSecurity {
         );
     }
 
-    private AuthenticationFilter getAuthenticationFilter(AuthenticationManager authenticationManager) {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter(
-                authenticationManager,
-                new ObjectMapper(),
-                securityResponseHandler,
-                customSecurityExceptionHandler
-        );
 
-        // 로그인 경로 설정
-        authenticationFilter.setFilterProcessesUrl("/api/auth/login");
-        return authenticationFilter;
-    }
 }

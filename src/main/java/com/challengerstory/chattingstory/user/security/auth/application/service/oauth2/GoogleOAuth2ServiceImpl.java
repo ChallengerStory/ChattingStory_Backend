@@ -1,6 +1,5 @@
 package com.challengerstory.chattingstory.user.security.auth.application.service.oauth2;
 
-import com.challengerstory.chattingstory.user.command.domain.aggregate.entity.UserEntity;
 import com.challengerstory.chattingstory.user.command.domain.aggregate.entity.UserType;
 import com.challengerstory.chattingstory.user.security.auth.aggregate.dto.oauth2.OAuth2ResponseDTO;
 import com.challengerstory.chattingstory.user.security.auth.aggregate.userdetails.CustomUser;
@@ -49,10 +48,10 @@ public class GoogleOAuth2ServiceImpl implements GoogleOAuth2Service {
         log.debug("userInfo: {}", userInfo);
         CustomUser foundUser;
         try {
-            foundUser = authUserService.loadUserByUsername("GOOGLE_"+userInfo.get("id")+"@GOOGLE.COM");
+            foundUser = authUserService.loadUserByUsername(UserType.GOOGLE.name()+"_"+userInfo.get("id"));
 
         }catch (UsernameNotFoundException e){
-            foundUser = authUserService.registOAuth2User(UserType.GOOGLE, userInfo.get("id"), userInfo.get("username"));
+            foundUser = authUserService.registOAuth2User(UserType.GOOGLE, userInfo.get("id"));
         }
         String accessToken = jwtProvider.generateAccessToken(foundUser);
         String refreshToken = jwtProvider.generateRefreshToken(foundUser);
@@ -85,6 +84,7 @@ public class GoogleOAuth2ServiceImpl implements GoogleOAuth2Service {
                     Map.class
             );
             Map<String, Object> responseBody = response.getBody();
+            assert responseBody != null;
             return (String) responseBody.get("access_token");
 
         } catch (HttpClientErrorException e) {

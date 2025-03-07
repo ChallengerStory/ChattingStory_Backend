@@ -1,5 +1,5 @@
 package com.challengerstory.chattingstory.user.command.application.service;
-import com.challengerstory.chattingstory.user.security.auth.repository.UserRepository;
+import com.challengerstory.chattingstory.user.command.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

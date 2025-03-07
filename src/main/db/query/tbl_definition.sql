@@ -14,7 +14,8 @@ CREATE TABLE
     TBL_USER (
         user_id BIGINT NOT NULL AUTO_INCREMENT,
         user_type VARCHAR(255) NOT NULL,
-        user_identifier VARCHAR(255) NOT NULL,
+        user_identifier VARCHAR(1023) NOT NULL,
+        user_name VARCHAR(1023) NOT NULL,
         profile_url VARCHAR(1023),
         password VARCHAR(1023),
         PRIMARY KEY (user_id),
