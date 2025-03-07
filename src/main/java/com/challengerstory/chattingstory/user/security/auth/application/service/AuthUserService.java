@@ -1,10 +1,13 @@
 package com.challengerstory.chattingstory.user.security.auth.application.service;
 
-import com.challengerstory.chattingstory.user.security.auth.aggregate.userdetails.OAuthLoginResponseDTO;
+import com.challengerstory.chattingstory.user.command.domain.aggregate.entity.UserType;
+import com.challengerstory.chattingstory.user.security.auth.aggregate.userdetails.CustomUser;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface AuthUserService extends UserDetailsService {
     @Override
-    OAuthLoginResponseDTO loadUserByUsername(String userIdentifier) throws UsernameNotFoundException;
+    CustomUser loadUserByUsername(String userIdentifier) throws UsernameNotFoundException;
+
+    CustomUser registOAuth2User(UserType userType, String id);
 }

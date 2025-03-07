@@ -12,12 +12,12 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class OAuthLoginResponseDTO extends User {
+public class CustomUser extends User {
     private Long userId;
     private String userType;
     private String userIdentifier;
 
-    public OAuthLoginResponseDTO(UserEntity userEntity, List<GrantedAuthority> authorities){
+    public CustomUser(UserEntity userEntity, List<GrantedAuthority> authorities){
         super(userEntity.getUserIdentifier(), userEntity.getPassword(), authorities);
         this.userId = userEntity.getUserId();
         this.userType = userEntity.getUserType().name();
