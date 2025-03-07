@@ -1,6 +1,6 @@
 package com.challengerstory.chattingstory.user.security.auth.infrastructure.jwt;
 
-import com.challengerstory.chattingstory.user.security.auth.aggregate.userdetails.CustomUser;
+import com.challengerstory.chattingstory.user.security.auth.aggregate.userdetails.OAuthLoginResponseDTO;
 import com.challengerstory.chattingstory.user.security.config.CustomSecurityProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -20,11 +20,11 @@ public class JwtProvider {
     private final JwtUtil jwtUtil;
     private final CustomSecurityProperties customSecurityProperties;
 
-    public String generateAccessToken(CustomUser user){
+    public String generateAccessToken(OAuthLoginResponseDTO user){
         return buildToken(user, customSecurityProperties.getAccessExpirationTime());
     }
 
-    public String generateRefreshToken(CustomUser user){
+    public String generateRefreshToken(OAuthLoginResponseDTO user){
         return buildToken(user, customSecurityProperties.getRefreshExpirationTime());
     }
     public String refreshAccessToken(Claims claims){
@@ -32,7 +32,7 @@ public class JwtProvider {
     }
 
     /* subject: email(OAuth 유저의 경우 userIdentifier@UserType.com 형식으로 저장) */
-    public String buildToken(CustomUser user, Long expiration){
+    public String buildToken(OAuthLoginResponseDTO user, Long expiration){
         Claims claims = Jwts.claims().setSubject(user.getUsername());
         claims.put("auth", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
         
