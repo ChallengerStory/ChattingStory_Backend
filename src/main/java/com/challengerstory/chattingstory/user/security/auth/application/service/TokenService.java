@@ -39,12 +39,6 @@ public class TokenService {
         }
     }
 
-    public boolean validateAccessToken(String accessToken) {
-        if (tokenStore.isBlacklisted(accessToken)) {
-            throw new CommonException(ErrorCode.ACCESS_TOKEN_BLACKLISTED);
-        }
-        return true;
-    }
 
     public void removeRefreshToken(String email) {
         tokenStore.removeRefreshToken(email);
