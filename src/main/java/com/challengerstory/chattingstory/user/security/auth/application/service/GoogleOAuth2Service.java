@@ -49,8 +49,9 @@ public class GoogleOAuth2Service {
             foundUser = authUserService.loadUserByUsername(userIdentifier);
 
         }catch (UsernameNotFoundException e){
-            foundUser = authUserService.registOAuth2User(UserType.GOOGLE, userInfo.get("id"));
+            foundUser = authUserService.registOAuth2User(UserType.GOOGLE, userInfo.get("id"), userInfo.get("profileUrl"));
         }
+        log.debug("foundUser: {}", foundUser);
         String accessToken = jwtProvider.generateAccessToken(foundUser);
         String refreshToken = jwtProvider.generateRefreshToken(foundUser);
         tokenService.saveRefreshToken(foundUser.getUsername(), refreshToken);
@@ -58,6 +59,8 @@ public class GoogleOAuth2Service {
         res.setUserIdentifier(foundUser.getUserIdentifier());
         res.setAccessToken(accessToken);
         res.setRefreshToken(refreshToken);
+        res.setProfileUrl(foundUser.getProfileUrl());
+        res.setUserId(foundUser.getUserId());
         return res;
     }
 
@@ -112,6 +115,7 @@ public class GoogleOAuth2Service {
 
             userInfo.put("id", (String) responseBody.get("id"));
             userInfo.put("username", (String) responseBody.get("name"));
+            userInfo.put("profileUrl", (String) responseBody.get("picture"));
             return userInfo;
         } catch (HttpClientErrorException e) {
             log.debug("e: {}", e);

@@ -9,5 +9,5 @@ public interface AuthUserService extends UserDetailsService {
     @Override
     CustomUser loadUserByUsername(String userIdentifier) throws UsernameNotFoundException;
 
-    CustomUser registOAuth2User(UserType userType, String id);
+    CustomUser registOAuth2User(UserType userType, String id, String profileUrl);
 }

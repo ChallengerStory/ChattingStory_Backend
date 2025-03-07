@@ -16,12 +16,14 @@ public class CustomUser extends User {
     private Long userId;
     private String userType;
     private String userIdentifier;
+    private String profileUrl;
 
     public CustomUser(UserEntity userEntity, List<GrantedAuthority> authorities){
         super(userEntity.getUserIdentifier(), userEntity.getPassword(), authorities);
         this.userId = userEntity.getUserId();
         this.userType = userEntity.getUserType().name();
         this.userIdentifier = userEntity.getUserIdentifier();
+        this.profileUrl = userEntity.getProfileUrl();
 
     }
 }

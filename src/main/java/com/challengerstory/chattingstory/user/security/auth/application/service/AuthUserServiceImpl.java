@@ -34,12 +34,13 @@ public class AuthUserServiceImpl implements AuthUserService{
     }
 
     @Override
-    public CustomUser registOAuth2User(UserType userType, String id) {
+    public CustomUser registOAuth2User(UserType userType, String id, String profileUrl) {
         UserEntity user = new UserEntity();
         user.setUserType(userType);
         user.setUsername(id);
         user.setPassword(bCryptPasswordEncoder.encode(id));
         user.setUserRole(UserRole.ROLE_MEMBER);
+        user.setProfileUrl(profileUrl);
         user = userRepository.save(user);
 
         List<GrantedAuthority> authorities = new ArrayList<>();
