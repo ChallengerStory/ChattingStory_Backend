@@ -1,10 +1,10 @@
 package com.challengerstory.chattingstory.user.security.auth.repository;
 
 public interface TokenStore {
-    void saveRefreshToken(String email, String refreshToken);
-    String getRefreshToken(String email);
-    void removeRefreshToken(String email);
-    void addToBlacklist(String token, String email, long remainingTime);
+    void saveRefreshToken(String userIdentifier, String refreshToken);
+    String getRefreshToken(String userIdentifier);
+    void removeRefreshToken(String userIdentifier);
+    void addToBlacklist(String token, String userIdentifier, long remainingTime);
     boolean isBlacklisted(String token);
 
 }

@@ -18,8 +18,8 @@ public class RedisTokenStore implements TokenStore {
     private final CustomSecurityProperties customSecurityProperties;
 
     @Override
-    public void saveRefreshToken(String email, String refreshToken) {
-        String key = REFRESH_TOKEN_PREFIX + email;
+    public void saveRefreshToken(String userIdentifier, String refreshToken) {
+        String key = REFRESH_TOKEN_PREFIX + userIdentifier;
         redisTemplate.opsForValue().set(
                 key,
                 refreshToken,
@@ -29,23 +29,23 @@ public class RedisTokenStore implements TokenStore {
     }
 
     @Override
-    public String getRefreshToken(String email) {
-        String key = REFRESH_TOKEN_PREFIX + email;
+    public String getRefreshToken(String userIdentifier) {
+        String key = REFRESH_TOKEN_PREFIX + userIdentifier;
         return redisTemplate.opsForValue().get(key);
     }
 
     @Override
-    public void removeRefreshToken(String email) {
-        String key = REFRESH_TOKEN_PREFIX + email;
+    public void removeRefreshToken(String userIdentifier) {
+        String key = REFRESH_TOKEN_PREFIX + userIdentifier;
         redisTemplate.delete(key);
     }
 
     @Override
-    public void addToBlacklist(String token, String email, long remainingTime) {
+    public void addToBlacklist(String token, String userIdentifier, long remainingTime) {
         String key = BLACKLIST_PREFIX + token;
         redisTemplate.opsForValue().set(
                 key,
-                email,
+                userIdentifier,
                 remainingTime,
                 TimeUnit.MILLISECONDS
         );
