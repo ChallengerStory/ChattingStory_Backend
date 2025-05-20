@@ -2,8 +2,13 @@ package com.challengerstory.chattingstory.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-@AllArgsConstructor
+import lombok.NoArgsConstructor;
+
 @Data
-public class Greeting {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ChatMessage {
+
+    private String sender;
     private String content;
 }
